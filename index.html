@@ -3,144 +3,331 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IA Toolkit Académique - Light Edition</title>
+    <title>Boîte à outils IA - Université Côte d'Azur</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
         
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background: #ffffff;
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background: #ffffff; 
             color: #1e293b;
+            scroll-behavior: smooth;
         }
 
-        .custom-blue { color: #00AFD7; }
+        .custom-blue-text { color: #00AFD7; }
         .custom-blue-bg { background-color: #00AFD7; }
-        .custom-blue-border { border-color: #00AFD7; }
+        
+        @media (min-width: 1024px) {
+            .sidebar {
+                width: 280px;
+                position: fixed;
+                top: 0; left: 0; height: 100vh;
+                background: #f8fafc;
+                border-right: 1px solid #e2e8f0;
+                padding: 2.5rem;
+                display: flex;
+                flex-direction: column;
+                z-index: 50;
+            }
+            .main-content { margin-left: 280px; padding: 5rem; }
+            .mobile-nav { display: none; }
+        }
 
-        .glass-card {
-            background: rgba(248, 250, 252, 0.8);
-            backdrop-filter: blur(8px);
+        @media (max-width: 1023px) {
+            .sidebar { display: none; }
+            .main-content { padding: 5rem 1.5rem 2rem 1.5rem; }
+            .mobile-nav {
+                position: fixed;
+                top: 0; left: 0; right: 0;
+                height: 60px;
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(10px);
+                border-bottom: 1px solid #e2e8f0;
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+                z-index: 100;
+            }
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 1.2rem;
+            border-radius: 1rem;
+            color: #64748b;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .nav-link:hover { background: #ffffff; color: #00AFD7; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+
+        .ui-card {
             border: 1px solid #e2e8f0;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .glass-card:hover {
-            border-color: #00AFD7;
             background: #ffffff;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .badge {
+            font-size: 8px;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 9999px;
+            text-transform: uppercase;
+        }
+        .badge-free { background: #dcfce7; color: #166534; }
+        .badge-mix { background: #fef9c3; color: #854d0e; }
+        .badge-fav { background: #00AFD7; color: #ffffff; }
+
+        .highlight-card {
+            border-color: #00AFD7 !important;
             transform: translateY(-5px);
-            box-shadow: 0 12px 24px -10px rgba(0, 175, 215, 0.2);
+            box-shadow: 0 20px 25px -5px rgba(0, 175, 215, 0.1);
+            z-index: 10;
+        }
+        
+        .dimmed-card {
+            opacity: 0.4;
+            filter: grayscale(0.5);
         }
 
-        .category-header {
-            border-left: 4px solid #00AFD7;
-            padding-left: 1rem;
+        .filter-btn-active {
+            background-color: #00AFD7 !important;
+            color: white !important;
+            border-color: #00AFD7 !important;
         }
-
-        .badge-free { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
-        .badge-paid { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
-        .badge-mix { background: #fef9c3; color: #854d0e; border: 1px solid #fef08a; }
     </style>
 </head>
-<body class="p-6 md:p-12">
+<body>
 
-    <div class="max-w-6xl mx-auto">
-        <header class="mb-16">
-            <h1 class="text-5xl font-extrabold mb-4 text-slate-900 tracking-tight">
-                Boîte à outils IA <span style="color: #00AFD7;">2026</span>
-            </h1>
-            <p class="text-slate-500 text-lg">La sélection ultime pour la réussite universitaire, version claire et épurée.</p>
+    <nav class="mobile-nav">
+        <a href="#redaction" class="custom-blue-text"><i data-lucide="pen-tool" class="w-5 h-5"></i></a>
+        <a href="#recherche" class="custom-blue-text"><i data-lucide="search" class="w-5 h-5"></i></a>
+        <span class="text-[10px] font-800 custom-blue-text italic">BOÎTE IA</span>
+        <a href="#design" class="custom-blue-text"><i data-lucide="layout" class="w-5 h-5"></i></a>
+        <a href="#audio" class="custom-blue-text"><i data-lucide="mic" class="w-5 h-5"></i></a>
+    </nav>
+
+    <aside class="sidebar">
+        <div class="mb-12">
+            <h1 class="text-2xl font-800 tracking-tighter custom-blue-text italic text-center">Boîte à outils IA <span class="text-slate-300 font-light">2026</span></h1>
+        </div>
+        <nav class="flex-1 space-y-2">
+            <a href="#redaction" class="nav-link"><i data-lucide="pen-tool" class="w-4 h-4 mr-3"></i> Rédaction</a>
+            <a href="#recherche" class="nav-link"><i data-lucide="search" class="w-4 h-4 mr-3"></i> Recherche</a>
+            <a href="#design" class="nav-link"><i data-lucide="layout" class="w-4 h-4 mr-3"></i> Design</a>
+            <a href="#audio" class="nav-link"><i data-lucide="mic" class="w-4 h-4 mr-3"></i> Audio</a>
+        </nav>
+        <div class="mt-auto p-4 bg-slate-900 rounded-2xl text-white text-center text-[9px] font-bold tracking-widest uppercase">
+            Université Côte d'Azur
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="mb-12">
+            <h2 class="text-4xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                L'IA au service de <br><span class="custom-blue-text">la réussite étudiante.</span>
+            </h2>
         </header>
 
-        <div id="content" class="space-y-16">
-            </div>
+        <section class="mb-20 p-8 bg-slate-50 rounded-[2.5rem] border border-slate-100">
+            <div class="max-w-4xl">
+                <h3 class="text-xl font-800 mb-8 flex items-center italic">
+                    <i data-lucide="wand-2" class="w-6 h-6 mr-3 custom-blue-text"></i>
+                    Quel est votre profil ?
+                </h3>
+                
+                <div class="space-y-8">
+                    <div>
+                        <p class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4">Votre filière principale :</p>
+                        <div class="flex flex-wrap gap-2">
+                            <button onclick="filterTools('sciences', this)" class="filter-btn px-4 py-2 rounded-xl bg-white border border-slate-200 text-xs font-bold hover:border-[#00AFD7] transition-all">Sciences & Ingénierie</button>
+                            <button onclick="filterTools('lettres', this)" class="filter-btn px-4 py-2 rounded-xl bg-white border border-slate-200 text-xs font-bold hover:border-[#00AFD7] transition-all">Lettres & SHS</button>
+                            <button onclick="filterTools('droit', this)" class="filter-btn px-4 py-2 rounded-xl bg-white border border-slate-200 text-xs font-bold hover:border-[#00AFD7] transition-all">Droit & Économie</button>
+                            <button onclick="filterTools('arts', this)" class="filter-btn px-4 py-2 rounded-xl bg-white border border-slate-200 text-xs font-bold hover:border-[#00AFD7] transition-all">Arts & Design</button>
+                        </div>
+                    </div>
 
-        <footer class="mt-24 py-8 border-t border-slate-100 text-center text-slate-400 text-sm">
-            Optimisé pour la réussite étudiante • Document interactif
+                    <div>
+                        <p class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4">Votre besoin prioritaire :</p>
+                        <div class="flex flex-wrap gap-2">
+                            <button onclick="filterTools('biblio', this)" class="filter-btn px-4 py-2 rounded-xl bg-white border border-slate-200 text-xs font-bold hover:border-[#00AFD7] transition-all">Recherche bibliographique</button>
+                            <button onclick="filterTools('redac', this)" class="filter-btn px-4 py-2 rounded-xl bg-white border border-slate-200 text-xs font-bold hover:border-[#00AFD7] transition-all">Rédaction & Correction</button>
+                            <button onclick="filterTools('synth', this)" class="filter-btn px-4 py-2 rounded-xl bg-white border border-slate-200 text-xs font-bold hover:border-[#00AFD7] transition-all">Synthèse de cours</button>
+                            <button onclick="filterTools('reset', this)" class="px-4 py-2 rounded-xl bg-slate-200 text-slate-600 text-xs font-black uppercase">Réinitialiser</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="redaction" class="mb-20 lg:mb-32">
+            <div class="flex items-center mb-8 lg:mb-12 border-l-4 border-[#00AFD7] pl-6">
+                <h3 class="text-2xl lg:text-3xl font-bold text-slate-800 italic">Texte & Rédaction</h3>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+                <div class="ui-card rounded-[2rem] overflow-hidden" data-tags="sciences lettres droit redac">
+                    <div class="h-32 flex items-center justify-center bg-white">
+                        <svg viewBox="0 0 24 24" class="w-16 h-16" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M19.3 12.5c-.1 0-.1 0 0 0-3.3 0-6.1-2.2-7-5.2-.8 3-3.6 5.2-7 5.2 0 0-.1 0 0 0 3.3 0 6.1 2.2 7 5.2.8-3 3.6-5.2 7-5.2Z" fill="url(#gemini-grad)"/>
+                            <defs><linearGradient id="gemini-grad" x1="5.25" y1="5.25" x2="18.75" y2="18.75" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#4285F4"/><stop offset="0.5" stop-color="#9B72CB"/><stop offset="1" stop-color="#D96570"/></linearGradient></defs>
+                        </svg>
+                    </div>
+                    <div class="p-8 text-center">
+                        <span class="badge badge-fav inline-block mb-4 italic">Coup de cœur</span>
+                        <h4 class="font-bold text-xl">Gemini</h4>
+                        <p class="text-slate-400 text-xs mt-2 mb-8">L'IA de Google, rapide et connectée au Web.</p>
+                        <a href="https://gemini.google.com/" target="_blank" class="block py-4 rounded-2xl bg-slate-50 font-bold text-xs hover:custom-blue-bg hover:text-white transition-all italic">Lancer Gemini</a>
+                    </div>
+                </div>
+                <div class="ui-card rounded-[2rem] overflow-hidden" data-tags="lettres sciences synth">
+                    <div class="h-32 flex items-center justify-center bg-slate-50">
+                        <img src="https://www.gstatic.com/images/branding/product/2x/notebooklm_96dp.png" class="w-12 h-12" alt="NotebookLM">
+                    </div>
+                    <div class="p-8 text-center">
+                        <span class="badge badge-free inline-block mb-4">Gratuit</span>
+                        <h4 class="font-bold text-xl">NotebookLM</h4>
+                        <p class="text-slate-400 text-xs mt-2 mb-8 italic">Analysez vos propres cours et PDF.</p>
+                        <a href="https://notebooklm.google/" target="_blank" class="block py-4 rounded-2xl bg-slate-50 font-bold text-xs hover:custom-blue-bg hover:text-white transition-all italic">Ouvrir l'outil</a>
+                    </div>
+                </div>
+                <div class="ui-card rounded-[2rem] overflow-hidden" data-tags="lettres droit redac">
+                    <div class="h-32 flex items-center justify-center bg-black">
+                        <svg viewBox="0 0 100 100" class="w-12 h-12" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M10 80V20L50 60L90 20V80" stroke="white" stroke-width="12" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="p-8 text-center">
+                        <span class="badge badge-free inline-block mb-4">Français</span>
+                        <h4 class="font-bold text-xl">LeChat</h4>
+                        <p class="text-slate-400 text-xs mt-2 mb-8 italic">Mistral AI : idéal pour le style rédactionnel.</p>
+                        <a href="https://chat.mistral.ai/" target="_blank" class="block py-4 rounded-2xl bg-slate-50 font-bold text-xs hover:custom-blue-bg hover:text-white transition-all italic">Ouvrir l'outil</a>
+                    </div>
+                </div>
+                <div class="ui-card rounded-[2rem] overflow-hidden" data-tags="sciences arts redac synth">
+                    <div class="h-32 flex items-center justify-center bg-slate-50">
+                        <i data-lucide="sparkles" class="w-12 h-12 text-emerald-500"></i>
+                    </div>
+                    <div class="p-8 text-center">
+                        <span class="badge badge-mix inline-block mb-4">Mixte</span>
+                        <h4 class="font-bold text-xl">ChatGPT</h4>
+                        <p class="text-slate-400 text-xs mt-2 mb-8 italic">Polyvalence et planification de tâches.</p>
+                        <a href="https://chat.openai.com/" target="_blank" class="block py-4 rounded-2xl bg-slate-50 font-bold text-xs hover:custom-blue-bg hover:text-white transition-all italic">Lancer</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="recherche" class="mb-20 lg:mb-32">
+            <div class="flex items-center mb-8 lg:mb-12 border-l-4 border-[#00AFD7] pl-6">
+                <h3 class="text-2xl lg:text-3xl font-bold text-slate-800 italic">Recherche & Sources</h3>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <a href="https://www.perplexity.ai/" target="_blank" class="ui-card p-8 rounded-3xl block" data-tags="sciences lettres biblio">
+                    <span class="badge badge-mix">Mixte</span>
+                    <h4 class="font-bold text-2xl mt-4 italic">Perplexity</h4>
+                    <p class="text-[10px] text-slate-400 mt-2 uppercase font-bold tracking-widest">Recherche web citée</p>
+                </a>
+                <a href="https://consensus.app/" target="_blank" class="ui-card p-8 rounded-3xl block" data-tags="sciences droit biblio">
+                    <span class="badge badge-mix">Mixte</span>
+                    <h4 class="font-bold text-2xl mt-4 italic">Consensus</h4>
+                    <p class="text-[10px] text-slate-400 mt-2 uppercase font-bold tracking-widest">Moteur scientifique</p>
+                </a>
+                <a href="https://www.zotero.org/" target="_blank" class="ui-card p-8 rounded-3xl block" data-tags="lettres droit sciences biblio">
+                    <span class="badge badge-free">Gratuit</span>
+                    <h4 class="font-bold text-2xl mt-4 italic">Zotero</h4>
+                    <p class="text-[10px] text-slate-400 mt-2 uppercase font-bold tracking-widest">Biblio & Citations</p>
+                </a>
+                <a href="https://www.deepl.com/" target="_blank" class="ui-card p-8 rounded-3xl block" data-tags="lettres sciences">
+                    <span class="badge badge-free">Gratuit</span>
+                    <h4 class="font-bold text-2xl mt-4 italic">DeepL</h4>
+                    <p class="text-[10px] text-slate-400 mt-2 uppercase font-bold tracking-widest">Traducteur précis</p>
+                </a>
+            </div>
+        </section>
+
+        <section id="design" class="mb-20 lg:mb-32">
+            <div class="flex items-center mb-8 lg:mb-12 border-l-4 border-[#00AFD7] pl-6">
+                <h3 class="text-2xl lg:text-3xl font-bold text-slate-800 italic">Design & Présentation</h3>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="ui-card p-10 rounded-[2.5rem]" data-tags="arts lettres sciences synth">
+                    <span class="badge badge-mix">Mixte</span>
+                    <h4 class="text-2xl font-bold mt-4 italic">Gamma App</h4>
+                    <p class="text-slate-500 text-sm mt-2 mb-6 italic leading-relaxed">Créez des présentations complètes à partir d'un simple texte.</p>
+                    <a href="https://gamma.app/" target="_blank" class="text-xs font-black custom-blue-text underline uppercase tracking-widest">Lancer Gamma</a>
+                </div>
+                <div class="ui-card p-10 rounded-[2.5rem]" data-tags="arts redac synth">
+                    <span class="badge badge-mix">Mixte</span>
+                    <h4 class="text-2xl font-bold mt-4 italic">Canva Magic</h4>
+                    <p class="text-slate-500 text-sm mt-2 mb-6 italic leading-relaxed">Design facilité pour vos rapports et supports visuels.</p>
+                    <a href="https://www.canva.com/" target="_blank" class="text-xs font-black custom-blue-text underline uppercase tracking-widest">Lancer Canva</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="audio" class="mb-20 lg:mb-32">
+            <div class="flex items-center mb-8 lg:mb-12 border-l-4 border-[#00AFD7] pl-6">
+                <h3 class="text-2xl lg:text-3xl font-bold text-slate-800 italic">Audio & Langues</h3>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center italic">
+                <a href="https://huggingface.co/spaces/openai/whisper" target="_blank" class="ui-card p-8 rounded-[2rem] block" data-tags="sciences lettres synth">
+                    <span class="badge badge-free">Gratuit</span>
+                    <h4 class="font-bold mt-4">Whisper</h4>
+                    <p class="text-[10px] text-slate-400 mt-1 uppercase tracking-widest">Audio vers Texte (Cours)</p>
+                </a>
+                <a href="https://www.deepl.com/write" target="_blank" class="ui-card p-8 rounded-[2rem] block" data-tags="lettres droit redac">
+                    <span class="badge badge-free">Gratuit</span>
+                    <h4 class="font-bold mt-4">DeepL Write</h4>
+                    <p class="text-[10px] text-slate-400 mt-1 uppercase tracking-widest">Correction & Style</p>
+                </a>
+                <a href="https://elevenlabs.io/" target="_blank" class="ui-card p-8 rounded-[2rem] block" data-tags="arts">
+                    <span class="badge badge-mix">Mixte</span>
+                    <h4 class="font-bold mt-4">ElevenLabs</h4>
+                    <p class="text-[10px] text-slate-400 mt-1 uppercase tracking-widest">Synthèse Vocale Pro</p>
+                </a>
+            </div>
+        </section>
+
+        <footer class="mt-20 py-10 border-t border-slate-100 text-center text-slate-300 text-[9px] font-bold tracking-[0.3em] uppercase italic">
+            Université Côte d'Azur • 2026
         </footer>
-    </div>
+    </main>
 
     <script>
-        const database = [
-            {
-                title: "Texte & Rédaction",
-                icon: "pen-tool",
-                tools: [
-                    { name: "LeChat (Mistral)", price: "Gratuit", url: "https://chat.mistral.ai/", tag: "free" },
-                    { name: "NotebookLM", price: "Gratuit", url: "https://notebooklm.google/", tag: "free" },
-                    { name: "ChatGPT-4o", price: "Mixte", url: "https://chatgpt.com/", tag: "mix" },
-                    { name: "Claude 3.5", price: "Mixte", url: "https://claude.ai/", tag: "mix" }
-                ]
-            },
-            {
-                title: "Recherche & Sources",
-                icon: "search",
-                tools: [
-                    { name: "Perplexity", price: "Gratuit", url: "https://www.perplexity.ai/", tag: "free" },
-                    { name: "Consensus", price: "Mixte", url: "https://consensus.app/", tag: "mix" },
-                    { name: "Elicit", price: "Mixte", url: "https://elicit.org/", tag: "mix" },
-                    { name: "Zotero AI", price: "Gratuit", url: "https://www.zotero.org/", tag: "free" }
-                ]
-            },
-            {
-                title: "Design & Présentation",
-                icon: "layout",
-                tools: [
-                    { name: "Gamma", price: "Mixte", url: "https://gamma.app/", tag: "mix" },
-                    { name: "Canva Magic", price: "Mixte", url: "https://www.canva.com/", tag: "mix" },
-                    { name: "Adobe Firefly", price: "Mixte", url: "https://www.adobe.com/firefly", tag: "mix" },
-                    { name: "Midjourney", price: "Payant", url: "https://www.midjourney.com/", tag: "paid" }
-                ]
-            },
-            {
-                title: "Audio & Langues",
-                icon: "mic",
-                tools: [
-                    { name: "Whisper", price: "Gratuit", url: "https://openai.com/research/whisper", tag: "free" },
-                    { name: "ElevenLabs", price: "Mixte", url: "https://elevenlabs.io/", tag: "mix" },
-                    { name: "DeepL Write", price: "Gratuit", url: "https://www.deepl.com/write", tag: "free" },
-                    { name: "HeyGen", price: "Payant", url: "https://www.heygen.com/", tag: "paid" }
-                ]
-            }
-        ];
-
-        const container = document.getElementById('content');
-
-        database.forEach(section => {
-            const sectionHTML = `
-                <section>
-                    <div class="category-header mb-8 flex items-center">
-                        <i data-lucide="${section.icon}" style="color: #00AFD7;" class="mr-3"></i>
-                        <h2 class="text-2xl font-bold tracking-tight text-slate-800">${section.title}</h2>
-                    </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                        ${section.tools.map(tool => `
-                            <a href="${tool.url}" target="_blank" class="glass-card p-6 rounded-2xl block group relative overflow-hidden">
-                                <div class="flex flex-col h-full justify-between">
-                                    <div>
-                                        <div class="flex justify-between items-start mb-4">
-                                            <span class="${tool.tag === 'free' ? 'badge-free' : tool.tag === 'mix' ? 'badge-mix' : 'badge-paid'} text-[10px] font-bold px-2 py-0.5 rounded-md uppercase">
-                                                ${tool.price}
-                                            </span>
-                                            <i data-lucide="external-link" class="w-4 h-4 text-slate-300 group-hover:text-[#00AFD7] transition-colors"></i>
-                                        </div>
-                                        <h3 class="font-bold text-slate-800 mb-1 group-hover:text-[#00AFD7] transition-colors">${tool.name}</h3>
-                                    </div>
-                                    <div class="mt-4 flex items-center text-xs font-semibold text-slate-400 group-hover:text-[#00AFD7] transition-colors">
-                                        Découvrir l'outil 
-                                        <i data-lucide="chevron-right" class="w-3 h-3 ml-1 transform group-hover:translate-x-1 transition-transform"></i>
-                                    </div>
-                                </div>
-                            </a>
-                        `).join('')}
-                    </div>
-                </section>
-            `;
-            container.insertAdjacentHTML('beforeend', sectionHTML);
-        });
-
         lucide.createIcons();
+
+        function filterTools(tag, btn) {
+            const cards = document.querySelectorAll('.ui-card');
+            const buttons = document.querySelectorAll('.filter-btn');
+            
+            // Gestion de la réinitialisation
+            if (tag === 'reset') {
+                cards.forEach(card => {
+                    card.classList.remove('dimmed-card', 'highlight-card');
+                });
+                buttons.forEach(b => b.classList.remove('filter-btn-active'));
+                return;
+            }
+
+            // Mise en avant visuelle du bouton
+            buttons.forEach(b => b.classList.remove('filter-btn-active'));
+            btn.classList.add('filter-btn-active');
+
+            // Logique de filtrage
+            cards.forEach(card => {
+                const tags = card.getAttribute('data-tags');
+                if (tags && tags.includes(tag)) {
+                    card.classList.remove('dimmed-card');
+                    card.classList.add('highlight-card');
+                } else {
+                    card.classList.add('dimmed-card');
+                    card.classList.remove('highlight-card');
+                }
+            });
+        }
     </script>
 </body>
 </html>
