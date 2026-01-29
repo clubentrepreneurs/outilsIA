@@ -1,175 +1,179 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IA Toolkit - Succès Universitaire</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
-        
-        :root {
-            --primary: #6366f1;
-            --bg: #fdfeff;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Boîte à outils IA – Étudiants</title>
 
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--bg);
-            color: #1e293b;
-        }
+  <!-- Police Apex (fallback si non installée localement) -->
+  <style>
+    @font-face {
+      font-family: 'Apex';
+      src: local('Apex');
+    }
 
-        .glass-card {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(226, 232, 240, 0.8);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+    body {
+      font-family: 'Apex', 'Segoe UI', Arial, sans-serif;
+      background: #f5f7fb;
+      color: #1f2937;
+      margin: 0;
+      padding: 2rem;
+    }
 
-        .glass-card:hover {
-            border-color: var(--primary);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
-            transform: translateY(-4px);
-        }
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
 
-        .gradient-text {
-            background: linear-gradient(135deg, #4f46e5 0%, #9333ea 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
 
-        .badge {
-            font-size: 0.65rem;
-            padding: 2px 8px;
-            border-radius: 9999px;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-    </style>
+    .card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 1.25rem 1.5rem;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 32px rgba(0,0,0,0.12);
+    }
+
+    .card h2 {
+      font-size: 1.2rem;
+      margin-bottom: 0.75rem;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    li {
+      margin-bottom: 0.5rem;
+    }
+
+    a {
+      color: #4f46e5;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      margin-left: 0.4rem;
+    }
+
+    .free { background: #d1fae5; color: #065f46; }
+    .paid { background: #fee2e2; color: #7f1d1d; }
+    .mixed { background: #e0e7ff; color: #1e3a8a; }
+
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      font-size: 0.9rem;
+      color: #6b7280;
+    }
+  </style>
 </head>
-<body class="antialiased">
 
-    <div class="max-w-6xl mx-auto px-6 py-16">
-        <header class="max-w-3xl mb-16">
-            <h1 class="text-6xl font-extrabold tracking-tight mb-6">
-                Boîte à outils <span class="gradient-text">IA</span>
-            </h1>
-            <p class="text-xl text-slate-500 leading-relaxed">
-                Le guide essentiel des intelligences artificielles pour la réussite académique. Enrichi pour les étudiants universitaires.
-            </p>
-        </header>
+<body>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            
-            <div class="glass-card rounded-3xl p-8">
-                <div class="w-12 h-12 bg-indigo-50 rounded-2xl flex items-center justify-center text-indigo-600 mb-6">
-                    <i data-lucide="pen-tool"></i>
-                </div>
-                <h3 class="text-xl font-bold mb-4">Rédaction & Synthèse</h3>
-                <div class="space-y-4 text-sm">
-                    <div class="flex justify-between items-center pb-2 border-b border-slate-50">
-                        <span class="font-medium">LeChat (Mistral)</span>
-                        <span class="badge bg-green-100 text-green-700">Gratuit</span>
-                    </div>
-                    <div class="flex justify-between items-center pb-2 border-b border-slate-50">
-                        <span class="font-medium">NotebookLM (Google)</span>
-                        <span class="badge bg-blue-100 text-blue-700">Incontournable</span>
-                    </div>
-                    <div class="flex justify-between items-center pb-2 border-b border-slate-50">
-                        <span class="font-medium">Claude (Anthropic)</span>
-                        <span class="badge bg-purple-100 text-purple-700">Premium</span>
-                    </div>
-                </div>
-            </div>
+  <h1>🎓 Boîte à outils IA pour la réussite universitaire</h1>
 
-            <div class="glass-card rounded-3xl p-8">
-                <div class="w-12 h-12 bg-amber-50 rounded-2xl flex items-center justify-center text-amber-600 mb-6">
-                    <i data-lucide="library"></i>
-                </div>
-                <h3 class="text-xl font-bold mb-4">Recherche & Sources</h3>
-                <div class="space-y-4 text-sm">
-                    <div class="flex justify-between items-center pb-2 border-b border-slate-50">
-                        <span class="font-medium">Perplexity AI</span>
-                        <span class="badge bg-green-100 text-green-700">Gratuit</span>
-                    </div>
-                    <div class="flex justify-between items-center pb-2 border-b border-slate-50">
-                        <span class="font-medium">Consensus / Elicit</span>
-                        <span class="badge bg-amber-100 text-amber-700">Sourcing</span>
-                    </div>
-                    <div class="flex justify-between items-center pb-2 border-b border-slate-50">
-                        <span class="font-medium">DeepL (Traduction)</span>
-                        <span class="badge bg-slate-100 text-slate-700">Freemium</span>
-                    </div>
-                </div>
-            </div>
+  <div class="grid">
 
-            <div class="glass-card rounded-3xl p-8">
-                <div class="w-12 h-12 bg-rose-50 rounded-2xl flex items-center justify-center text-rose-600 mb-6">
-                    <i data-lucide="sparkles"></i>
-                </div>
-                <h3 class="text-xl font-bold mb-4">Design & Présentation</h3>
-                <div class="space-y-4 text-sm">
-                    <div class="flex justify-between items-center pb-2 border-b border-slate-50">
-                        <span class="font-medium">Gamma (Slides)</span>
-                        <span class="badge bg-rose-100 text-rose-700">Productivité</span>
-                    </div>
-                    <div class="flex justify-between items-center pb-2 border-b border-slate-50">
-                        <span class="font-medium">Leonardo.ai</span>
-                        <span class="badge bg-slate-100 text-slate-700">Images</span>
-                    </div>
-                    <div class="flex justify-between items-center pb-2 border-b border-slate-50">
-                        <span class="font-medium">HeyGen (Vidéo)</span>
-                        <span class="badge bg-red-100 text-red-700">Payant</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="glass-card rounded-3xl p-8">
-                <div class="w-12 h-12 bg-cyan-50 rounded-2xl flex items-center justify-center text-cyan-600 mb-6">
-                    <i data-lucide="headphones"></i>
-                </div>
-                <h3 class="text-xl font-bold mb-4">Audio & Langues</h3>
-                <div class="space-y-4 text-sm">
-                    <div class="flex justify-between items-center pb-2 border-b border-slate-50">
-                        <span class="font-medium">Whisper (Transcription)</span>
-                        <span class="badge bg-green-100 text-green-700">Gratuit</span>
-                    </div>
-                    <div class="flex justify-between items-center pb-2 border-b border-slate-50">
-                        <span class="font-medium">ElevenLabs (Audio)</span>
-                        <span class="badge bg-purple-100 text-purple-700">Top IA</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="glass-card rounded-3xl p-8 lg:col-span-2 bg-slate-900 text-white border-none">
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
-                    <div>
-                        <h3 class="text-2xl font-bold mb-2">Méthodologie & Révision</h3>
-                        <p class="text-slate-400 mb-6 md:mb-0">Les outils pour ancrer les connaissances sur le long terme.</p>
-                    </div>
-                    <div class="flex gap-4">
-                        <div class="bg-white/10 p-4 rounded-2xl">
-                            <span class="block font-bold">Anki</span>
-                            <span class="text-xs text-slate-400">Flashcards</span>
-                        </div>
-                        <div class="bg-white/10 p-4 rounded-2xl">
-                            <span class="block font-bold">Quizgecko</span>
-                            <span class="text-xs text-slate-400">Exam Prep</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <footer class="mt-20 text-center text-slate-400 text-xs tracking-widest uppercase">
-            &copy; 2024 — Boîte à outils IA Université
-        </footer>
+    <div class="card">
+      <h2>✍️ Texte → Texte</h2>
+      <ul>
+        <li><a href="https://chat.openai.com" target="_blank">ChatGPT</a> <span class="badge mixed">Gratuit / Payant</span></li>
+        <li><a href="https://claude.ai" target="_blank">Claude</a> <span class="badge mixed">Gratuit / Payant</span></li>
+        <li><a href="https://gemini.google.com" target="_blank">Gemini</a> <span class="badge mixed">Gratuit / Payant</span></li>
+        <li><a href="https://www.perplexity.ai" target="_blank">Perplexity</a> <span class="badge mixed">Gratuit / Payant</span></li>
+        <li><a href="https://copilot.microsoft.com" target="_blank">Microsoft Copilot</a> <span class="badge mixed">Gratuit / Payant</span></li>
+        <li><a href="https://elicit.org" target="_blank">Elicit</a> <span class="badge free">Gratuit</span></li>
+        <li><a href="https://scite.ai" target="_blank">Scite.ai</a> <span class="badge paid">Payant</span></li>
+      </ul>
     </div>
 
-    <script>
-        lucide.createIcons();
-    </script>
+    <div class="card">
+      <h2>🖼️ Image → Texte</h2>
+      <ul>
+        <li><a href="https://chat.openai.com" target="_blank">ChatGPT (Vision)</a> <span class="badge mixed">Gratuit / Payant</span></li>
+        <li><a href="https://lens.google" target="_blank">Google Lens</a> <span class="badge free">Gratuit</span></li>
+        <li><a href="https://mathpix.com" target="_blank">Mathpix</a> <span class="badge mixed">Gratuit / Payant</span></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>🎨 Texte → Image</h2>
+      <ul>
+        <li><a href="https://chat.openai.com" target="_blank">ChatGPT Image</a> <span class="badge mixed">Gratuit / Payant</span></li>
+        <li><a href="https://www.midjourney.com" target="_blank">Midjourney</a> <span class="badge paid">Payant</span></li>
+        <li><a href="https://firefly.adobe.com" target="_blank">Adobe Firefly</a> <span class="badge mixed">Gratuit / Payant</span></li>
+        <li><a href="https://www.canva.com" target="_blank">Canva</a> <span class="badge mixed">Gratuit / Payant</span></li>
+        <li><a href="https://leonardo.ai" target="_blank">Leonardo AI</a> <span class="badge mixed">Gratuit / Payant</span></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>📊 Texte → Diaporama</h2>
+      <ul>
+        <li><a href="https://gamma.app" target="_blank">Gamma</a> <span class="badge mixed">Gratuit / Payant</span></li>
+        <li><a href="https://www.genspark.ai" target="_blank">GenSpark</a> <span class="badge mixed">Gratuit / Payant</span></li>
+        <li><a href="https://www.slideai.io" target="_blank">SlideAI</a> <span class="badge mixed">Gratuit / Payant</span></li>
+        <li><a href="https://www.beautiful.ai" target="_blank">Beautiful.ai</a> <span class="badge paid">Payant</span></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>🎥 Texte → Vidéo</h2>
+      <ul>
+        <li><a href="https://openai.com/sora" target="_blank">Sora</a> <span class="badge paid">Payant</span></li>
+        <li><a href="https://deepmind.google/technologies/veo" target="_blank">Veo</a> <span class="badge paid">Payant</span></li>
+        <li><a href="https://www.synthesia.io" target="_blank">Synthesia</a> <span class="badge paid">Payant</span></li>
+        <li><a href="https://www.heygen.com" target="_blank">HeyGen</a> <span class="badge paid">Payant</span></li>
+        <li><a href="https://invideo.io" target="_blank">InVideo</a> <span class="badge mixed">Gratuit / Payant</span></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>📝 Audio → Texte</h2>
+      <ul>
+        <li><a href="https://openai.com/research/whisper" target="_blank">Whisper</a> <span class="badge free">Gratuit</span></li>
+        <li><a href="https://otter.ai" target="_blank">Otter.ai</a> <span class="badge mixed">Gratuit / Payant</span></li>
+        <li><a href="https://www.notta.ai" target="_blank">Notta</a> <span class="badge mixed">Gratuit / Payant</span></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>🚀 Outils étudiants transversaux</h2>
+      <ul>
+        <li><a href="https://www.notion.so/product/ai" target="_blank">Notion AI</a> <span class="badge paid">Payant</span></li>
+        <li><a href="https://www.grammarly.com" target="_blank">Grammarly</a> <span class="badge mixed">Gratuit / Payant</span></li>
+        <li><a href="https://www.zotero.org" target="_blank">Zotero</a> <span class="badge free">Gratuit</span></li>
+        <li><a href="https://obsidian.md" target="_blank">Obsidian + IA</a> <span class="badge mixed">Gratuit / Payant</span></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <footer>
+    © Usage pédagogique – IA & esprit critique
+  </footer>
+
 </body>
 </html>
