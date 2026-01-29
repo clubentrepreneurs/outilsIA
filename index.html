@@ -3,99 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Boîte à Outils IA - Version Premium</title>
+    <title>IA Toolkit Premium - Réussite Étudiante</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
         
         body {
-            font-family: 'Inter', sans-serif;
-            background: radial-gradient(circle at top left, #f8fafc, #eff6ff);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: #0f172a; /* Fond sombre profond pour faire ressortir les cartes */
+            color: #f8fafc;
             min-height: 100vh;
         }
 
-        .premium-card {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05);
-            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
-            opacity: 0;
-            transform: translateY(20px);
+        .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
-        .premium-card.visible {
-            opacity: 1;
-            transform: translateY(0);
+        .glass-card:hover {
+            transform: translateY(-10px);
+            border-color: #6366f1;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(99, 102, 241, 0.2);
         }
 
-        .premium-card:hover {
-            box-shadow: 0 30px 60px -12px rgba(99, 102, 241, 0.15);
-            border-color: rgba(99, 102, 241, 0.4);
-            transform: translateY(-8px) scale(1.02);
-        }
-
-        .apex-style {
-            letter-spacing: -0.02em;
-            font-weight: 800;
-            background: linear-gradient(to right, #1e293b, #475569);
+        .apex-title {
+            letter-spacing: -0.04em;
+            background: linear-gradient(to bottom right, #fff 30%, #94a3b8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+
+        .filter-btn.active {
+            background-color: #6366f1;
+            color: white;
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.5);
+        }
+
+        .tool-link:hover {
+            color: #818cf8;
+            text-decoration: underline;
+        }
     </style>
 </head>
-<body class="py-12 px-6">
+<body class="py-16 px-6">
 
-    <div class="max-w-5xl mx-auto">
-        <header class="mb-20 text-center">
-            <span class="inline-block px-4 py-1.5 mb-4 text-xs font-semibold tracking-widest text-indigo-600 uppercase bg-indigo-50 rounded-full">Guide Académique 2026</span>
-            <h1 class="text-5xl md:text-7xl apex-style mb-6">Boîte à outils IA</h1>
-            <p class="text-slate-500 text-lg max-w-2xl mx-auto">L'arsenal technologique pour exceller à l'université, sélectionné pour les étudiants.</p>
+    <div class="max-w-6xl mx-auto">
+        <header class="text-center mb-16">
+            <h1 class="text-6xl md:text-7xl apex-title font-extrabold mb-6">Boîte à outils IA</h1>
+            <p class="text-slate-400 text-lg max-w-2xl mx-auto mb-10">L'arsenal ultime pour booster vos études en 2026.</p>
+            
+            <div class="flex justify-center gap-4">
+                <button onclick="filterTools('all')" id="btn-all" class="filter-btn active px-6 py-2 rounded-full border border-slate-700 text-sm font-semibold transition-all">Tous</button>
+                <button onclick="filterTools('gratuit')" id="btn-free" class="filter-btn px-6 py-2 rounded-full border border-slate-700 text-sm font-semibold transition-all">Gratuits</button>
+            </div>
         </header>
 
-        <div id="grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div id="tool-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             </div>
     </div>
 
     <script>
-        const tools = [
-            { cat: "Texte & Rédaction", items: ["LeChat (Gratuit)", "ChatGPT-4o (Mixte)", "Claude 3.5 (Premium)", "NotebookLM (Indispensable)"], icon: "pen-tool", color: "text-blue-500" },
-            { cat: "Recherche & Sources", items: ["Perplexity (Gratuit)", "Consensus (Académique)", "Elicit (Sourcing)", "Zotero (Gestion)"], icon: "search", color: "text-emerald-500" },
-            { cat: "Audio & Transcription", items: ["Whisper (Gratuit)", "ElevenLabs (Top Audio)", "Adobe Premiere (Pro)"], icon: "mic", color: "text-purple-500" },
-            { cat: "Visuels & Slides", items: ["Gamma (Présentations)", "Midjourney (Art)", "Canva Magic (Design)"], icon: "layout", color: "text-rose-500" }
+        const toolsData = [
+            { name: "LeChat Mistral", cat: "Rédaction", price: "gratuit", url: "https://chat.mistral.ai/", icon: "message-square" },
+            { name: "NotebookLM", cat: "Études/PDF", price: "gratuit", url: "https://notebooklm.google/", icon: "book-open" },
+            { name: "ChatGPT-4o", cat: "Rédaction", price: "mixte", url: "https://chatgpt.com/", icon: "zap" },
+            { name: "Claude.ai", cat: "Rédaction/Code", price: "mixte", url: "https://claude.ai/", icon: "brain" },
+            { name: "Perplexity", cat: "Recherche", price: "gratuit", url: "https://www.perplexity.ai/", icon: "search" },
+            { name: "Consensus", cat: "Science", price: "mixte", url: "https://consensus.app/", icon: "microscope" },
+            { name: "Gamma", cat: "Slides", price: "mixte", url: "https://gamma.app/", icon: "presentation" },
+            { name: "Whisper", cat: "Transcription", price: "gratuit", url: "https://openai.com/research/whisper", icon: "mic" },
+            { name: "ElevenLabs", cat: "Audio/Voix", price: "mixte", url: "https://elevenlabs.io/", icon: "headphones" },
+            { name: "DeepL", cat: "Traduction", price: "gratuit", url: "https://www.deepl.com/", icon: "languages" },
+            { name: "Canva Magic", cat: "Design", price: "mixte", url: "https://www.canva.com/", icon: "palette" },
+            { name: "Anki", cat: "Mémorisation", price: "gratuit", url: "https://apps.ankiweb.net/", icon: "copy" }
         ];
 
-        const grid = document.getElementById('grid');
-
-        tools.forEach((group, index) => {
-            const card = document.createElement('div');
-            card.className = `premium-card p-8 rounded-[2rem]`;
-            card.style.transitionDelay = `${index * 100}ms`;
+        function renderTools(filter = 'all') {
+            const grid = document.getElementById('tool-grid');
+            grid.innerHTML = '';
             
-            card.innerHTML = `
-                <div class="flex items-center mb-6">
-                    <div class="p-3 bg-white shadow-sm rounded-2xl ${group.color}">
-                        <i data-lucide="${group.icon}"></i>
+            const filtered = filter === 'all' ? toolsData : toolsData.filter(t => t.price === 'gratuit');
+            
+            filtered.forEach(tool => {
+                const card = document.createElement('div');
+                card.className = 'glass-card p-8 rounded-[2.5rem] flex flex-col justify-between';
+                card.innerHTML = `
+                    <div>
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="p-3 bg-indigo-500/10 rounded-2xl text-indigo-400">
+                                <i data-lucide="${tool.icon}"></i>
+                            </div>
+                            <span class="text-[10px] uppercase tracking-widest font-bold px-3 py-1 rounded-full ${tool.price === 'gratuit' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-amber-500/10 text-amber-400'}">
+                                ${tool.price}
+                            </span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">${tool.name}</h3>
+                        <p class="text-slate-400 text-sm mb-6">${tool.cat}</p>
                     </div>
-                    <h2 class="text-xl font-bold ml-4 text-slate-800">${group.cat}</h2>
-                </div>
-                <ul class="space-y-4">
-                    ${group.items.map(item => `
-                        <li class="flex items-center text-slate-600 group cursor-default">
-                            <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mr-3 group-hover:bg-indigo-500 transition-colors"></span>
-                            ${item}
-                        </li>
-                    `).join('')}
-                </ul>
-            `;
-            grid.appendChild(card);
-            
-            // Trigger animation
-            setTimeout(() => card.classList.add('visible'), 50);
-        });
+                    <a href="${tool.url}" target="_blank" class="flex items-center justify-between w-full py-3 px-6 bg-white/5 hover:bg-white/10 rounded-xl transition-all group">
+                        <span class="text-sm font-semibold">Ouvrir l'outil</span>
+                        <i data-lucide="external-link" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                `;
+                grid.appendChild(card);
+            });
+            lucide.createIcons();
+        }
 
-        lucide.createIcons();
+        function filterTools(type) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            if(type === 'all') document.getElementById('btn-all').classList.add('active');
+            else document.getElementById('btn-free').classList.add('active');
+            renderTools(type);
+        }
+
+        renderTools();
     </script>
 </body>
 </html>
