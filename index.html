@@ -64,10 +64,35 @@
 
         .nav-link:hover { background: #ffffff; color: #00AFD7; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
 
+        /* --- STYLE DES CARTES --- */
         .ui-card {
             border: 1px solid #e2e8f0;
             background: #ffffff;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        /* Effet de survol rétabli */
+        .ui-card:hover {
+            border-color: #00AFD7;
+            background-color: #f0faff; /* Léger bleu au survol */
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 175, 215, 0.1);
+            z-index: 20;
+        }
+
+        /* État quand un filtre est actif et que la carte est "gagnante" */
+        .highlight-card {
+            border-color: #00AFD7 !important;
+            border-width: 2px;
+            background-color: #fcfdfe;
+        }
+        
+        /* État quand la carte ne correspond pas au filtre */
+        .dimmed-card {
+            opacity: 0.3;
+            filter: grayscale(0.8);
+            pointer-events: none; /* Désactive le survol sur les cartes grisées */
         }
 
         .badge {
@@ -80,18 +105,6 @@
         .badge-free { background: #dcfce7; color: #166534; }
         .badge-mix { background: #fef9c3; color: #854d0e; }
         .badge-fav { background: #00AFD7; color: #ffffff; }
-
-        .highlight-card {
-            border-color: #00AFD7 !important;
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 175, 215, 0.1);
-            z-index: 10;
-        }
-        
-        .dimmed-card {
-            opacity: 0.4;
-            filter: grayscale(0.5);
-        }
 
         .filter-btn-active {
             background-color: #00AFD7 !important;
@@ -303,7 +316,6 @@
             const cards = document.querySelectorAll('.ui-card');
             const buttons = document.querySelectorAll('.filter-btn');
             
-            // Gestion de la réinitialisation
             if (tag === 'reset') {
                 cards.forEach(card => {
                     card.classList.remove('dimmed-card', 'highlight-card');
@@ -312,11 +324,9 @@
                 return;
             }
 
-            // Mise en avant visuelle du bouton
             buttons.forEach(b => b.classList.remove('filter-btn-active'));
             btn.classList.add('filter-btn-active');
 
-            // Logique de filtrage
             cards.forEach(card => {
                 const tags = card.getAttribute('data-tags');
                 if (tags && tags.includes(tag)) {
